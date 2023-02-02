@@ -10,7 +10,7 @@ async function chat(message, userName, ispremium, m, id) {
   var token = await useToken();
   if (!token) {
     return {
-      error: `We are reaching our capacity limits right now. \nFor more information join our discord: [dsc.gg/turing](https://dsc.gg/turing)`,
+      error: `We are reaching our capacity limits right now.`,
     };
   }
   try {
@@ -64,7 +64,7 @@ async function chat(message, userName, ispremium, m, id) {
     // await disableAcc(token.id);
     //await rateLimitAcc(token.id);
     return {
-      error: `Something wrong happened, please wait we are solving this issue [dsc.gg/turing](https://dsc.gg/turing)`,
+      error: `Something wrong happened, please wait we are solving this issue`,
     };
   }
 }

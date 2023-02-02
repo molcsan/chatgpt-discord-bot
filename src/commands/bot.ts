@@ -95,17 +95,9 @@ export default {
       new ButtonBuilder()
         .setLabel("Add me")
         .setURL(
-          `https://discord.com/api/oauth2/authorize?client_id=1053015370115588147&permissions=277025736768&scope=bot%20applications.commands`
+          `https://discord.com/api/oauth2/authorize?client_id=1070447831564947497&permissions=8&scope=bot`
         )
         .setStyle(ButtonStyle.Link),
-      new ButtonBuilder()
-        .setLabel("Support server")
-        .setURL("https://dsc.gg/turing")
-        .setStyle(ButtonStyle.Link),
-      new ButtonBuilder()
-        .setLabel("Github Repo")
-        .setURL("https://github.com/MrlolDev/chatgpt-discord-bot")
-        .setStyle(ButtonStyle.Link)
     );
     await commandType.reply(interaction, {
       embeds: [embed],

@@ -1,15 +1,10 @@
-import {
-  SlashCommandBuilder,
-  EmbedBuilder,
-  AttachmentBuilder,
-} from "discord.js";
-import { chat } from "../modules/gpt-api.js";
+import {SlashCommandBuilder,} from "discord.js";
+import {chat} from "../modules/gpt-api.js";
 import supabase from "../modules/supabase.js";
-import { v4 as uuidv4 } from "uuid";
-import { useToken } from "../modules/loadbalancer.js";
-import chatSonic from "../modules/sonic.js";
-import { isPremium } from "../modules/premium.js";
-var maintenance = false;
+// import chatSonic from "../modules/sonic.js";
+import {isPremium} from "../modules/premium.js";
+
+let maintenance = false;
 
 export default {
   cooldown: "90s",
@@ -52,12 +47,12 @@ export default {
     if (maintenance == true && interaction.user.id != "530102778408861706") {
       await commandType.reply(
         interaction,
-        "Service under maintenance, for more information join us on [dsc.gg/turing](https://dsc.gg/turing)"
+        "Service under maintenance"
       );
       return;
     }
-    var message;
-    var model;
+    let message;
+    let model;
     if (!interaction.options) {
       message = options.message;
       model = options.model;
@@ -67,9 +62,9 @@ export default {
     }
     console.log(options);
 
-    var result;
-    var cached = false;
-    var ispremium = await isPremium(interaction.user.id);
+    let result;
+    let cached = false;
+    const ispremium = await isPremium(interaction.user.id);
 
     if (model == "gpt-3") {
       result = await chat(
@@ -99,7 +94,7 @@ export default {
         .eq("prompt", message.toLowerCase())
         .eq("provider", "chatsonic");
       if (!results || error) {
-        var errr = "Error connecting with db";
+        const errr = "Error connecting with db";
 
         await responseWithText(
           interaction,
@@ -112,22 +107,23 @@ export default {
         return;
       }
       if (results[0] && results[0].result.text) {
-        var type = "chatsonic";
-        result = { text: results[0].result.text, type: type };
+        const modelType = "chatsonic";
+        result = { text: results[0].result.text, type: modelType };
         const { data, error } = await supabase
           .from("results")
           .update({ uses: results[0].uses + 1 })
           .eq("id", results[0].id);
         cached = true;
       } else {
-        result = await chatSonic(message);
+        // result = await chatSonic(message);
+        result = 'Chat sonic is not implemented yet, please use "gpt-3" or "chatgpt"'
       }
     }
     if (!result) {
       await responseWithText(
         interaction,
         message,
-        `Something wrong happened, please wait we are solving this issue [dsc.gg/turing](https://dsc.gg/turing)`,
+        `Something wrong happened, please wait we are solving this issue`,
         channel,
         "error",
         commandType
@@ -135,7 +131,7 @@ export default {
       return;
     }
     if (!result.error) {
-      var response = result.text;
+      const response = result.text;
       if (ispremium == false) {
         const { data, error } = await supabase.from("results").insert([
           {
@@ -177,14 +173,14 @@ async function responseWithText(
   prompt,
   result,
   channel,
-  type,
+  modelType,
   commandType
 ) {
-  var completeResponse = `**Human:** ${prompt}\n**AI(${type}):** ${result}`;
-  var charsCount = completeResponse.split("").length;
+  const completeResponse = `**Otázka pre AI:** ${prompt}\n**AI(${modelType}) odpoveď:** ${result}`;
+  const charsCount = completeResponse.split("").length;
   if (charsCount / 2000 >= 1) {
-    var loops = Math.ceil(charsCount / 2000);
-    for (var i = 0; i < loops; i++) {
+    const loops = Math.ceil(charsCount / 2000);
+    for (let i = 0; i < loops; i++) {
       if (i == 0) {
         try {
           commandType.reply(

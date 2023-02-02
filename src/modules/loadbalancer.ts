@@ -46,6 +46,7 @@ async function useToken(): Promise<null | {
   client: any;
 }> {
   var tokens = await getTokens();
+  console.debug(tokens)
   if (!tokens || tokens.length <= 0) {
     return;
   }

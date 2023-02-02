@@ -2,6 +2,7 @@ import supabase from "./supabase.js";
 import ms from "ms";
 
 export async function isPremium(id: string) {
+  return true;
   let { data: premium, error } = await supabase
     .from("premium")
     .select("*")
