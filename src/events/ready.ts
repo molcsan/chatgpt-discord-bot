@@ -1,7 +1,6 @@
-import { Events, ActivityType } from "discord.js";
+import {ActivityType, Events} from "discord.js";
 import chalk from "chalk";
-import { resetto0 } from "../modules/loadbalancer.js";
-import ms from "ms";
+import {resetto0} from "../modules/loadbalancer.js";
 import supabase from "../modules/supabase.js";
 
 export default {
@@ -16,7 +15,7 @@ export default {
       status: "online",
     });
 
-    const { data, error } = await supabase.from("conversations").delete();
+    const { data, error } = await supabase.from("conversations_2").delete();
     console.log(
       chalk.white(`Ready! Logged in as `) + chalk.blue.bold(client.user.tag)
     );

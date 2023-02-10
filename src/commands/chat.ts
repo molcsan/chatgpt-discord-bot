@@ -24,7 +24,7 @@ export default {
         .setRequired(true)
         .addChoices(
           { name: "gpt-3", value: "gpt-3" },
-          { name: "ChatGPT(gpt-3.5)", value: "chatgpt" }
+          // { name: "ChatGPT(gpt-3.5)", value: "chatgpt" }
         )
     ),
   /*
@@ -60,7 +60,7 @@ export default {
       message = interaction.options.getString("message");
       model = interaction.options.getString("model");
     }
-    console.log(options);
+    //console.log(options);
 
     let result;
     let cached = false;

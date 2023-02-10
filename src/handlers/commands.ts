@@ -1,8 +1,9 @@
 import path from "node:path";
 import fs from "node:fs";
 import chalk from "chalk";
-import { fileURLToPath } from "url";
-import { REST, Routes } from "discord.js";
+import {fileURLToPath} from "url";
+import {REST, Routes} from "discord.js";
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 // Create a new client instance
@@ -37,12 +38,12 @@ export default async function commandHandler(client) {
   (async () => {
     try {
       console.log(
-        `Started refreshing ${commands.length} application (/) commands.`
+          `Started refreshing ${commands.length} application (/) commands.`
       );
       // The put method is used to fully refresh all commands in the guild with the current set
       const data = await rest.put(
-        Routes.applicationCommands(process.env.CLIENT_ID),
-        { body: commands }
+          Routes.applicationCommands(process.env.CLIENT_ID),
+          {body: commands}
       );
 
       console.log(`Successfully reloaded application (/) commands.`);
@@ -50,5 +51,5 @@ export default async function commandHandler(client) {
       // And of course, make sure you catch and log any errors!
       console.log(error);
     }
-  })();
+  })().then( r => {});
 }

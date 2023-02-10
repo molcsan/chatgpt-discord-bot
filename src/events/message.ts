@@ -23,7 +23,7 @@ export default {
         content = message.content.split(`<@${client.user.id}> `)[1];
       }
 
-      console.log(content);
+      //console.log(content);
       let commandName = content;
       const commands = await client.commands.toJSON();
       if (!commandName) commandName = "help";
